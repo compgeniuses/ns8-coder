@@ -15,15 +15,7 @@ data = json.load(sys.stdin)
 
 
 
-# coder use the second random port, traefik the first one
-env_tcp_ports = os.environ["TCP_PORTS"].split(',')
-tcp_port_codeserver = env_tcp_ports[0]
-tcp_port_coder = env_tcp_ports[1]
-# Talk with agent using file descriptor.
 
-
-agent.set_env("TCP_PORT_CODESERVER", tcp_port_codeserver)
-agent.set_env("TCP_PORT_CODER", tcp_port_coder)
 #This is specific to you module, so you need to change it accordingly.
 # we read a json stdin {"vars1":true, "var2":"foo", "vars3": 3} and we writ it to .config/state/environment
 # Upper case to set environment variable and minor case to read from stdin
