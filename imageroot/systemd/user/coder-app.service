@@ -6,7 +6,7 @@
 [Unit]
 Description=Podman  coder-app.service
 BindsTo=coder.service
-After=coder.service postgresql-app.service codeserver-app.service
+After=coder.service postgresql-app.service
 
 [Service]
 Environment=PODMAN_SYSTEMD_UNIT=%n
