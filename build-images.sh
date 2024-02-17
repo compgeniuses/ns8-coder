@@ -14,7 +14,7 @@ images=()
 repobase="${REPOBASE:-ghcr.io/compgeniuses}"
 # Configure the image name
 reponame="coder"
-CODER_TAG="v2.8.2"
+CODER_TAG="v2.8.3"
 # Create a new empty container image
 container=$(buildah from scratch)
 
