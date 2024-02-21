@@ -1,19 +1,20 @@
 {
-  "name": "kickstart",
+  "name": "Coder",
   "description": {
-    "en": "My kickstart module"
+    "en": "Coder is an open source cloud development environment (CDE) that you download and host in your cloud. Deploy a single solution in seconds that provisions the infrastructure, IDE, language, and tools your developers desire."
   },
-  "categories": [],
+  "categories": ["collaboration"],
   "authors": [
     {
-      "name": "Name Surname",
-      "email": "author@yourmail.org"
+      "name": "Martin Bhuong",
+      "email": "martin@genius.ke"
     }
   ],
   "docs": {
-    "documentation_url": "https://docs.kickstart.com/",
-    "bug_url": "https://github.com/NethServer/dev",
-    "code_url": "https://github.com/author/ns8-kickstart"
+    "documentation_url": "https://coder.com/docs/v2/latest",
+    "bug_url": "https://github.com/compgeniuses/ns8-coder/issues",
+    "code_url": "https://github.com/compgeniuses/ns8-coder"
   },
-  "source": "ghcr.io/nethserver/kickstart"
+  "source": "ghcr.io/compgeniuses/coder"
 }
+
