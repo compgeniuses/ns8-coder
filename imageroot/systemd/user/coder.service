@@ -10,8 +10,8 @@
 
 [Unit]
 Description=Podman coder.service
-Requires=postgresql-app.service coder-app.service codeserver-app.service
-Before=postgresql-app.service coder-app.service codeserver-app.service
+Requires=postgresql-app.service coder-app.service
+Before=postgresql-app.service coder-app.service
 
 [Service]
 Environment=PODMAN_SYSTEMD_UNIT=%n
