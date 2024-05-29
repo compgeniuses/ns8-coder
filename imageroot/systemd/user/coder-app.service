@@ -6,12 +6,13 @@
 [Unit]
 Description=Podman  coder-app.service
 BindsTo=coder.service
-After=coder.service postgresql-app.service codeserver-app.service
+After=coder.service postgresql-app.service
 
 [Service]
 Environment=PODMAN_SYSTEMD_UNIT=%n
 EnvironmentFile=%S/state/environment
 EnvironmentFile=-%S/state/smarthost.env
+EnvironmentFile=-%S/state/database.env
 WorkingDirectory=%S/state
 Restart=always
 TimeoutStopSec=70
@@ -23,11 +24,12 @@ ExecStart=/usr/bin/podman run --conmon-pidfile %t/coder-app.pid \
     --pod-id-file %t/coder.pod-id --replace -d --name  coder-app \
     --volume coder-app:/var/www/html/:Z \
     --volume ./config:/tmp:Z \
-    --volume ./var/run/docker.sock:/var/run/docker.sock \
+    --volume .config-files:/home/coder/.config:Z \
+    --volume ./var/run/docker.sock:/var/run/docker.sock:Z \
     --env=NGINX_* \
-    --env=CODER_HTTP_ADDRESSL=127.0.0.1:7080 \
-    --env=CODER_ACCESS_URL=${host} \
-    --env 'CODER_PG_CONNECTION_URL="postgresql://coder:Nethesis,1234@127.0.0.1:5432/coder"' \
+    --env=CODER_HTTP_ADDRESS=127.0.0.1:7080 \
+    --env=CODER_ACCESS_URL=${CODER_ACCESS_URL} \
+    --env CODER_PG_CONNECTION_URL="postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_ROOT_HOST}:${POSTGRES_PORT}/${POSTGRES_DATABASE}" \
     ${CODER_IMAGE}
 ExecStop=/usr/bin/podman stop --ignore --cidfile %t/coder-app.ctr-id -t 10
 ExecReload=/usr/bin/podman kill -s HUP coder-app
