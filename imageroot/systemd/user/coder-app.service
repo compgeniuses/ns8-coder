@@ -22,15 +22,15 @@ ExecStartPre=-runagent discover-smarthost
 ExecStart=/usr/bin/podman run --conmon-pidfile %t/coder-app.pid \
     --cidfile %t/coder-app.ctr-id --cgroups=no-conmon \
     --pod-id-file %t/coder.pod-id --replace -d --name  coder-app \
-    --volume coder-app:/var/www/html/:Z \
-    --volume ./config:/tmp:Z \
-    --volume .config-files:/home/coder/.config:Z \
     --volume ./var/run/docker.sock:/var/run/docker.sock:Z \
     --env=NGINX_* \
-    --env=CODER_HTTP_ADDRESS=127.0.0.1:7080 \
+    --env=CODER_HTTP_ADDRESS="0.0.0.0:7080" \
     --env=CODER_ACCESS_URL=${CODER_ACCESS_URL} \
     --env CODER_PG_CONNECTION_URL="postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_ROOT_HOST}:${POSTGRES_PORT}/${POSTGRES_DATABASE}?sslmode=disable" \
     ${CODER_IMAGE}
+
+#    --volume ./config:/tmp:Z \
+#    --volume .config-files:/home/coder/.config:Z \
 ExecStop=/usr/bin/podman stop --ignore --cidfile %t/coder-app.ctr-id -t 10
 ExecReload=/usr/bin/podman kill -s HUP coder-app
 SyslogIdentifier=%u
